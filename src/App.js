@@ -2,6 +2,7 @@ import { NavBar, NoteUICollection, CreateNote, UpdateNote } from './ui-component
 import { useState } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { DataStore } from 'aws-amplify/datastore';
+import { CreateItem } from './CreateItem';
 
 function App({ signOut }) {
 
@@ -26,6 +27,7 @@ function App({ signOut }) {
         }}
       }} />
 
+
       <div className='container'>
       <NoteUICollection overrideItems={ ({item, idx}) => {
         return {
@@ -41,6 +43,10 @@ function App({ signOut }) {
         }
       }} />
 
+      </div>
+
+      <div className='modal'>
+        <CreateItem />
       </div>
 
       <div className='modal' style={{display: showCreateModal === false && 'none'}}>
