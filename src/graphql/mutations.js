@@ -2,8 +2,8 @@ const customCreateItem = `
   mutation CustomCreateItem($input: CreateItemInput!) {
     customCreateItem(input: $input) {
       id
-      name
-      description
+      title
+      text
       createdAt
       updatedAt
     }
