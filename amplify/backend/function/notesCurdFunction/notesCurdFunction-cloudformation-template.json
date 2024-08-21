@@ -39,6 +39,10 @@
     "authnotesapplicationUserPoolId": {
       "Type": "String",
       "Default": "authnotesapplicationUserPoolId"
+    },
+    "storagecrudsample123StreamArn": {
+      "Type": "String",
+      "Default": "storagecrudsample123StreamArn"
     }
   },
   "Conditions": {
@@ -131,6 +135,15 @@
                   }
                 ]
               ]
+            },
+            "STORAGE_CRUDSAMPLE123_NAME": {
+              "Ref": "storagecrudsample123Name"
+            },
+            "STORAGE_CRUDSAMPLE123_ARN": {
+              "Ref": "storagecrudsample123Arn"
+            },
+            "STORAGE_CRUDSAMPLE123_STREAMARN": {
+              "Ref": "storagecrudsample123StreamArn"
             }
           }
         },
@@ -400,6 +413,43 @@
                       {
                         "Ref": "authnotesapplicationUserPoolId"
                       }
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PartiQLInsert",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:PartiQLSelect",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:PartiQLUpdate",
+                "dynamodb:Delete*",
+                "dynamodb:PartiQLDelete"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storagecrudsample123Arn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storagecrudsample123Arn"
+                      },
+                      "index/*"
                     ]
                   ]
                 }

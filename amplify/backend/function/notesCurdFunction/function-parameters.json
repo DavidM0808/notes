@@ -15,6 +15,12 @@
       ]
     },
     "storage": {
+      "crudsample123": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
       "Notes:@model(appsync)": [
         "create",
         "read",
