@@ -16,7 +16,16 @@
         "notesapplication": {}
       },
       "function": {
-        "notesCurdFunction": {}
+        "notesCurdFunction": {
+          "deploymentBucketName": "amplify-notesapplication-staging-ca80c-deployment",
+          "s3Key": "amplify-builds/notesCurdFunction-707343552f466f546162-build.zip"
+        }
+      },
+      "api": {
+        "notesapplication": {}
+      },
+      "storage": {
+        "crudsample123": {}
       }
     }
   }

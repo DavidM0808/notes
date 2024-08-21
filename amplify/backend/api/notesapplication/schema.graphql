@@ -4,8 +4,14 @@ type Notes @model @auth(rules: [{allow: owner}]) {
   text: String
 }
 
+input CreateItemInput {
+  id: ID!
+  title: String
+  text: String
+}
+
 type Mutation {
-  customCreateItem(input: CreateItemInput!): Item
+  customCreateNotes(input: CreateItemInput!): Notes
     @function(name: "notesCurdFunction-${env}")
 }
  
