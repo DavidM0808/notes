@@ -1,0 +1,10 @@
+{
+  "resourceName": "crudsample123",
+  "tableName": "Notes",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "number"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
