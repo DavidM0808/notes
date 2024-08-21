@@ -45,10 +45,6 @@ function App({ signOut }) {
 
       </div>
 
-      <div className='modal' style={{display: 'none'}}>
-        <CreateItem />
-      </div>
-
       <div className='modal' style={{display: showCreateModal === false && 'none'}}>
         <CreateNote overrides={{
           MyIcon: {as: 'button', onClick: () => setShowCreateModal(false)}
@@ -59,6 +55,10 @@ function App({ signOut }) {
         <UpdateNote notes={updateNote} overrides={{
           MyIcon: {as: 'button', onClick: () => setShowUpdateModal(false)}
         }}/>
+      </div>
+
+      <div className='modal'>
+        <CreateItem />
       </div>
 
       {/* <NavBar width="100%" marginbottom="20px" />
