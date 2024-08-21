@@ -3,4 +3,9 @@ type Notes @model @auth(rules: [{allow: owner}]) {
   title: String
   text: String
 }
+
+type Mutation {
+  customCreateItem(input: CreateItemInput!): Item
+    @function(name: "notesCurdFunction-${env}")
+}
  
