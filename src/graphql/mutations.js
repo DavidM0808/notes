@@ -1,4 +1,4 @@
-const customCreateItem: string = `
+const customCreateItem = `
   mutation CustomCreateItem($input: CreateItemInput!) {
     customCreateItem(input: $input) {
       id

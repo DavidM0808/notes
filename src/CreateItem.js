@@ -14,7 +14,7 @@ const CreateItem = () => {
     try {
       const result = await client.graphql({
         query: customCreateItem,
-        variables: { input }
+        variables: { input: input }
       });
       console.log('Item created:', result.data.customCreateItem);
     } catch (error) {
