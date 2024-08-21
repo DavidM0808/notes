@@ -1,3 +1,26 @@
 {
-  "lambdaLayers": []
+  "lambdaLayers": [],
+  "permissions": {
+    "api": {
+      "notesapplication": [
+        "Mutation"
+      ]
+    },
+    "auth": {
+      "notesapplication": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "storage": {
+      "Notes:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
 }

@@ -1,4 +1,13 @@
-/*
+/* Amplify Params - DO NOT EDIT
+	API_NOTESAPPLICATION_GRAPHQLAPIENDPOINTOUTPUT
+	API_NOTESAPPLICATION_GRAPHQLAPIIDOUTPUT
+	API_NOTESAPPLICATION_GRAPHQLAPIKEYOUTPUT
+	API_NOTESAPPLICATION_NOTESTABLE_ARN
+	API_NOTESAPPLICATION_NOTESTABLE_NAME
+	AUTH_NOTESAPPLICATION_USERPOOLID
+	ENV
+	REGION
+Amplify Params - DO NOT EDIT *//*
 Copyright 2017 - 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
     http://aws.amazon.com/apache2.0/

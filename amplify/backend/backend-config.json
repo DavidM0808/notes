@@ -72,16 +72,20 @@
       "build": true,
       "dependsOn": [
         {
-          "attributeEnvMap": {
-            "Arn": "TABLE_ARN",
-            "Name": "TABLE_NAME"
-          },
           "attributes": [
-            "Name",
-            "Arn"
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
           ],
-          "category": "storage",
-          "resourceName": "crudsample123"
+          "category": "api",
+          "resourceName": "notesapplication"
+        },
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "notesapplication"
         }
       ],
       "providerPlugin": "awscloudformation",
