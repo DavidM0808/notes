@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { API as Amplify, graphqlOperation } from 'aws-amplify';
+import { Amplify, graphqlOperation } from 'aws-amplify';
 import { customCreateItem } from './graphql/mutations'; // Import the generated mutation
 
 const CreateItem = () => {
