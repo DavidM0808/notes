@@ -27,13 +27,13 @@ const CreateItem = () => {
       <input
         type="text"
         placeholder="title"
-        value={name}
+        value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
       <input
         type="text"
         placeholder="text"
-        value={description}
+        value={text}
         onChange={(e) => setText(e.target.value)}
       />
       <button onClick={handleCreateItem}>Create Item</button>
