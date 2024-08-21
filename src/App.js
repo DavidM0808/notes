@@ -2,7 +2,7 @@ import { NavBar, NoteUICollection, CreateNote, UpdateNote } from './ui-component
 import { useState } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { DataStore } from 'aws-amplify/datastore';
-import { CreateItem } from './CreateItem';
+import CreateItem from './CreateItem';
 
 function App({ signOut }) {
 
