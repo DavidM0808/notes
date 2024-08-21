@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import { Amplify, graphqlOperation } from 'aws-amplify';
+import { generateClient } from 'aws-amplify/api';
 import { customCreateItem } from './graphql/mutations'; // Import the generated mutation
 
+const client = generateClient();
+
 const CreateItem = () => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
 
   const handleCreateItem = async () => {
-    const input = { id: `${Date.now()}`, name, description };
+    const input = { id: `${Date.now()}`, title, text };
 
     try {
-      const result = await Amplify.graphql(graphqlOperation(customCreateItem, { input }));
+      const result = await client.graphql({
+        query: customCreateItem,
+        variables: { input }
+      });
       console.log('Item created:', result.data.customCreateItem);
     } catch (error) {
       console.error('Error creating item:', error);
@@ -21,15 +26,15 @@ const CreateItem = () => {
     <div>
       <input
         type="text"
-        placeholder="Item Name"
+        placeholder="title"
         value={name}
-        onChange={(e) => setName(e.target.value)}
+        onChange={(e) => setTitle(e.target.value)}
       />
       <input
         type="text"
-        placeholder="Description"
+        placeholder="text"
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(e) => setText(e.target.value)}
       />
       <button onClick={handleCreateItem}>Create Item</button>
     </div>
