@@ -45,7 +45,7 @@ function App({ signOut }) {
 
       </div>
 
-      <div className='modal'>
+      <div className='modal' style={{display: 'none'}}>
         <CreateItem />
       </div>
 
