@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { API, graphqlOperation } from 'aws-amplify';
+import { API as Amplify, graphqlOperation } from 'aws-amplify';
 import { customCreateItem } from './graphql/mutations'; // Import the generated mutation
 
 const CreateItem = () => {
@@ -10,7 +10,7 @@ const CreateItem = () => {
     const input = { id: `${Date.now()}`, name, description };
 
     try {
-      const result = await API.graphql(graphqlOperation(customCreateItem, { input }));
+      const result = await Amplify.graphql(graphqlOperation(customCreateItem, { input }));
       console.log('Item created:', result.data.customCreateItem);
     } catch (error) {
       console.error('Error creating item:', error);
