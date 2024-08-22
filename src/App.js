@@ -47,7 +47,7 @@ function App({ signOut }) {
 
       <div className='modal' style={{display: showCreateModal === false && 'none'}}>
         <CreateNote overrides={{
-          MyIcon: {as: 'button', onClick: () => setShowCreateModal(false)}
+          MyIcon: {as: 'button', onClick: () => setShowCreateModal(false)},
         }} />
       </div>
       
@@ -57,7 +57,7 @@ function App({ signOut }) {
         }}/>
       </div>
 
-      <div className='modal'>
+      <div style={{alignItems: 'center', margin: 500}}>
         <CreateItem />
       </div>
 
