@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { generateClient } from 'aws-amplify/api';
-import { customCreateItem } from './graphql/mutations'; // Import the generated mutation
+import { customCreateNotes } from './graphql/mutations'; // Import the generated mutation
 import { useDataStoreCreateAction } from './ui-components/utils';
 import { schema } from './models/schema';
 import { Notes } from './models';
@@ -27,35 +27,45 @@ const CreateItem = () => {
 
   }
 
-  const handleCreateItem = useDataStoreCreateAction({
-    fields: {
-      title: title,
-      text, text
-    },
-    model: Notes,
-    schema: schema
-  });
+  // const handleCreateItem = useDataStoreCreateAction({
+  //   fields: {
+  //     title: title,
+  //     text, text
+  //   },
+  //   model: Notes,
+  //   schema: schema
+  // });
   
 
-  // const handleCreateItem = async () => {
-  //   const input = { id: `${Date.now()}`, title, text };
+  const handleCreateItem = async () => {
+    const input = { id: `${Date.now()}`, title, text };
 
-  //   console.log({title, text});
+    console.log({title, text});
 
-  //   try {
-  //     const result = await client.graphql({
-  //       query: customCreateItem,
-  //       variables: { input: {
-  //         title, text
-  //       }}
-  //     });
-  //     console.log(result);
-  //     console.log('Item created:', result.data.customCreateItem);
-  //   } catch (error) {
-  //     console.error('Error creating item:', error);
-  //   }
+    const result = await client.graphql({
+      query: customCreateNotes,
+      variables: {
+        input: {
+          title, text
+        }
+      }
+    });
+    console.log(result);
 
-  // };
+    // try {
+    //   const result = await client.graphql({
+    //     query: customCreateItem,
+    //     variables: { input: {
+    //       title, text
+    //     }}
+    //   });
+    //   console.log(result);
+    //   console.log('Item created:', result.data.customCreateItem);
+    // } catch (error) {
+    //   console.error('Error creating item:', error);
+    // }
+
+  };
 
   return (
     <div>

@@ -1,6 +1,6 @@
-const customCreateItem = `
-  mutation CustomCreateItem($input: CreateItemInput!) {
-    customCreateItem(input: $input) {
+const customCreateNotes = `
+  mutation CustomCreateNotes($input: CreateNotesInput!) {
+    customCreateNotes(input: $input) {
       id
       title
       text
