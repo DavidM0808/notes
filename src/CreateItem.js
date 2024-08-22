@@ -42,28 +42,26 @@ const CreateItem = () => {
 
     console.log({title, text});
 
-    const result = await client.graphql({
-      query: customCreateNotes,
-      variables: {
-        input: {
-          title, text
-        }
-      }
-    });
-    console.log(result);
-
-    // try {
-    //   const result = await client.graphql({
-    //     query: customCreateItem,
-    //     variables: { input: {
+    // const result = await client.graphql({
+    //   query: customCreateNotes,
+    //   variables: {
+    //     input: {
     //       title, text
-    //     }}
-    //   });
-    //   console.log(result);
-    //   console.log('Item created:', result.data.customCreateItem);
-    // } catch (error) {
-    //   console.error('Error creating item:', error);
-    // }
+    //     }
+    //   }
+    // });
+    // console.log(result);
+
+    try {
+      const result = await client.graphql({
+        query: customCreateNotes,
+        variables: { input: input}
+      });
+      console.log(result);
+      console.log('Item created:', result.data.customCreateNotes);
+    } catch (error) {
+      console.error('Error creating item:', error);
+    }
 
   };
 

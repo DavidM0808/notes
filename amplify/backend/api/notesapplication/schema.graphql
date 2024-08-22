@@ -10,8 +10,15 @@ input CreateNotesInput {
   text: String
 }
 
+input UpdateNotesInput {
+  id: ID!
+  title: String
+  text: String
+}
+
 type Mutation {
-  customCreateNotes(input: CreateNotesInput!): Notes
-    @function(name: "notesCurdFunction-${env}")
+  customCreateNotes(input: CreateNotesInput!): Notes @function(name: "notesCurdFunction-${env}")
+  customUpdateNotes(input: UpdateNotesInput!): Notes @function(name: "notesCurdFunction-${env}")
+  customDeleteNotes(id: ID!): Notes @function(name: "notesCurdFunction-${env}")
 }
  
