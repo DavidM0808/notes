@@ -1,7 +1,7 @@
 {
   "version": 1,
   "serviceConfiguration": {
-    "apiName": "notesapplication",
+    "apiName": "notes",
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "API_KEY",
@@ -14,7 +14,7 @@
       },
       {
         "mode": "AMAZON_COGNITO_USER_POOLS",
-        "cognitoUserPoolId": "authnotesapplication"
+        "cognitoUserPoolId": "authnotes"
       }
     ],
     "conflictResolution": {

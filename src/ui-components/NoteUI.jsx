@@ -12,8 +12,11 @@ import { schema } from "../models/schema";
 import { Flex, Icon, Text, View } from "@aws-amplify/ui-react";
 export default function NoteUI(props) {
   const { notes, overrides, ...rest } = props;
-  const vectorThreeOneFourSevenTwoSevenFourSevenOnClick =
-    useDataStoreDeleteAction({ id: notes?.id, model: Notes, schema: schema });
+  const myIconOnClick = useDataStoreDeleteAction({
+    id: notes?.id,
+    model: Notes,
+    schema: schema,
+  });
   return (
     <Flex
       gap="16px"
@@ -140,6 +143,9 @@ export default function NoteUI(props) {
               shrink="0"
               position="relative"
               padding="0px 0px 0px 0px"
+              onClick={() => {
+                myIconOnClick();
+              }}
               {...getOverrideProps(overrides, "MyIcon")}
             >
               <Icon
@@ -162,9 +168,6 @@ export default function NoteUI(props) {
                 bottom="12.5%"
                 left="20.83%"
                 right="20.83%"
-                onClick={() => {
-                  vectorThreeOneFourSevenTwoSevenFourSevenOnClick();
-                }}
                 {...getOverrideProps(overrides, "Vector31472747")}
               ></Icon>
             </View>

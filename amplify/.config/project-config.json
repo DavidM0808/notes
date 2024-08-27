@@ -2,7 +2,7 @@
   "providers": [
     "awscloudformation"
   ],
-  "projectName": "notesapplication",
+  "projectName": "notes",
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {

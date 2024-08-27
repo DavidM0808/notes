@@ -1,37 +1,48 @@
-import { gql } from 'graphql-tag';
+/* eslint-disable */
+// this is an auto generated file. This will be overwritten
 
-export const customCreateNotes = gql`
-  mutation CustomCreateNotes($input: CreateNotesInput!) {
-    customCreateNotes(input: $input) {
+export const createNotes = /* GraphQL */ `
+  mutation CreateNotes(
+    $input: CreateNotesInput!
+    $condition: ModelNotesConditionInput
+  ) {
+    createNotes(input: $input, condition: $condition) {
       id
       title
       text
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
-
-export const customUpdateNotes = gql`
-  mutation CustomUpdateNotes($input: UpdateNotesInput!) {
-    customUpdateNotes(input: $input) {
+export const updateNotes = /* GraphQL */ `
+  mutation UpdateNotes(
+    $input: UpdateNotesInput!
+    $condition: ModelNotesConditionInput
+  ) {
+    updateNotes(input: $input, condition: $condition) {
       id
       title
       text
       createdAt
       updatedAt
+      __typename
     }
   }
-`
-
-export const customDeleteNotes = gql`
-  mutation CustomDeleteNotes($id: ID!) {
-    customDeleteNotess(id: $id) {
+`;
+export const deleteNotes = /* GraphQL */ `
+  mutation DeleteNotes(
+    $input: DeleteNotesInput!
+    $condition: ModelNotesConditionInput
+  ) {
+    deleteNotes(input: $input, condition: $condition) {
       id
       title
       text
       createdAt
       updatedAt
+      __typename
     }
   }
-`
+`;
