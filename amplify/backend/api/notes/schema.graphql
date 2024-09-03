@@ -1,13 +1,4 @@
-type Notes @model 
-@auth(
-  rules: [
-      {
-      allow: owner,
-      ownerField: "owner",
-      operations: [create, delete, update, read] 
-      }
-    ]
-  ) {
+type Notes @model @auth(rules: [{allow: owner}, {allow: private}, {allow: public}, {allow: private, provider: iam}]) {
   id: ID!
   title: String
   text: String
