@@ -66,5 +66,100 @@
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
     }
+  },
+  "function": {
+    "notesCurdFunction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "Notesjwmvhzzwkbf7djbiu327z2gqoestaging"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_notesCurdFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notesCurdFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_notesCurdFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notesCurdFunction"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Notesjwmvhzzwkbf7djbiu327z2gqoestaging_arn": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Notesjwmvhzzwkbf7djbiu327z2gqoestaging"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Notesjwmvhzzwkbf7djbiu327z2gqoestaging_partitionKeyName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Notesjwmvhzzwkbf7djbiu327z2gqoestaging"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Notesjwmvhzzwkbf7djbiu327z2gqoestaging_partitionKeyType": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Notesjwmvhzzwkbf7djbiu327z2gqoestaging"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Notesjwmvhzzwkbf7djbiu327z2gqoestaging_region": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Notesjwmvhzzwkbf7djbiu327z2gqoestaging"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Notesjwmvhzzwkbf7djbiu327z2gqoestaging_streamArn": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Notesjwmvhzzwkbf7djbiu327z2gqoestaging"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Notesjwmvhzzwkbf7djbiu327z2gqoestaging_tableName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Notesjwmvhzzwkbf7djbiu327z2gqoestaging"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "Notesjwmvhzzwkbf7djbiu327z2gqoestaging": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB",
+      "serviceType": "imported"
+    }
   }
 }

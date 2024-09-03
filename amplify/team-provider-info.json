@@ -17,6 +17,22 @@
       },
       "api": {
         "notes": {}
+      },
+      "storage": {
+        "Notesjwmvhzzwkbf7djbiu327z2gqoestaging": {
+          "tableName": "Notes-jwmvhzzwkbf7djbiu327z2gqoe-staging",
+          "region": "us-east-2",
+          "arn": "arn:aws:dynamodb:us-east-2:562275928752:table/Notes-jwmvhzzwkbf7djbiu327z2gqoe-staging",
+          "streamArn": "arn:aws:dynamodb:us-east-2:562275928752:table/Notes-jwmvhzzwkbf7djbiu327z2gqoe-staging/stream/2024-08-27T17:46:09.043",
+          "partitionKeyName": "id",
+          "partitionKeyType": "S"
+        }
+      },
+      "function": {
+        "notesCurdFunction": {
+          "deploymentBucketName": "amplify-amplify6549dc8806ff4-staging-f69f5-deployment",
+          "s3Key": "amplify-builds/notesCurdFunction-3071772f62754c433845-build.zip"
+        }
       }
     }
   }
