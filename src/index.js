@@ -5,12 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { Amplify } from 'aws-amplify';
+// import { DataStore } from 'aws-amplify/datastore';
 import config from './aws-exports';
 
 import { ThemeProvider } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 Amplify.configure(config);
+// DataStore.configure(config);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
