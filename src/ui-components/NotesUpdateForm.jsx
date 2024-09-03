@@ -25,11 +25,9 @@ export default function NotesUpdateForm(props) {
   const initialValues = {
     title: "",
     text: "",
-    owner: "",
   };
   const [title, setTitle] = React.useState(initialValues.title);
   const [text, setText] = React.useState(initialValues.text);
-  const [owner, setOwner] = React.useState(initialValues.owner);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = notesRecord
@@ -37,7 +35,6 @@ export default function NotesUpdateForm(props) {
       : initialValues;
     setTitle(cleanValues.title);
     setText(cleanValues.text);
-    setOwner(cleanValues.owner);
     setErrors({});
   };
   const [notesRecord, setNotesRecord] = React.useState(notesModelProp);
@@ -54,7 +51,6 @@ export default function NotesUpdateForm(props) {
   const validations = {
     title: [],
     text: [],
-    owner: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -84,7 +80,6 @@ export default function NotesUpdateForm(props) {
         let modelFields = {
           title,
           text,
-          owner,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -142,7 +137,6 @@ export default function NotesUpdateForm(props) {
             const modelFields = {
               title: value,
               text,
-              owner,
             };
             const result = onChange(modelFields);
             value = result?.title ?? value;
@@ -168,7 +162,6 @@ export default function NotesUpdateForm(props) {
             const modelFields = {
               title,
               text: value,
-              owner,
             };
             const result = onChange(modelFields);
             value = result?.text ?? value;
@@ -182,32 +175,6 @@ export default function NotesUpdateForm(props) {
         errorMessage={errors.text?.errorMessage}
         hasError={errors.text?.hasError}
         {...getOverrideProps(overrides, "text")}
-      ></TextField>
-      <TextField
-        label="Owner"
-        isRequired={false}
-        isReadOnly={false}
-        value={owner}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              title,
-              text,
-              owner: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.owner ?? value;
-          }
-          if (errors.owner?.hasError) {
-            runValidationTasks("owner", value);
-          }
-          setOwner(value);
-        }}
-        onBlur={() => runValidationTasks("owner", owner)}
-        errorMessage={errors.owner?.errorMessage}
-        hasError={errors.owner?.hasError}
-        {...getOverrideProps(overrides, "owner")}
       ></TextField>
       <Flex
         justifyContent="space-between"
