@@ -10,8 +10,12 @@ export const createNotes = /* GraphQL */ `
       id
       title
       text
+      owner
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -25,8 +29,12 @@ export const updateNotes = /* GraphQL */ `
       id
       title
       text
+      owner
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -40,8 +48,12 @@ export const deleteNotes = /* GraphQL */ `
       id
       title
       text
+      owner
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
