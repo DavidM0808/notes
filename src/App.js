@@ -4,6 +4,7 @@ import { withAuthenticator } from '@aws-amplify/ui-react';
 // import { DataStore } from 'aws-amplify/datastore';
 import CreateItem from './CreateItem';
 import UpdateItem from './UpdateItem';
+import DeleteItem from './DeleteItem';
 
 function App({ signOut }) {
 
@@ -62,15 +63,9 @@ function App({ signOut }) {
         <CreateItem />
       </div>
 
-      {/* <NavBar width="100%" marginbottom="20px" />
-
-      <div className='container'>
-        <NoteUICollection />
+      <div style={{alignItems: 'center', margin: 500}}>
+        <DeleteItem />
       </div>
-
-      <div className='modal' style={{display: 'none'}}>
-        <CreateNote />
-      </div> */}
 
       <div style={{alignItems: 'center', margin: 500}}>
         <UpdateItem />

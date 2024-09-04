@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { generateClient } from 'aws-amplify/api';
-import { customDeleteNotes } from './graphql/mutations';
+import { deleteNotes } from './graphql/mutations';
 
 const client = generateClient();
 
@@ -8,12 +8,13 @@ const DeleteItem = () => {
   const [id, setId] = useState('');
 
   const handleDeleteItem = async () => {
+    const input = {id};
     try {
       const result = await client.graphql({
-        query: customDeleteNotes,
+        query: deleteNotes,
         variables: {input: input}
       });
-      console.log('Item deleted:', result.data.customDeleteItem);
+      console.log('Item deleted:', result.data.deleteNotes);
     } catch (error) {
       console.error('Error deleting item:', error);
     }
