@@ -4,13 +4,15 @@ const dynamoDB = new DynamoDBClient;
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
-
 exports.handler = async (event) => {
-
-    const { userId } = event.identity.claims;
-    const { title, text } = event.arguments.input;
-
-    const tableName = process.env.STORAGE_Notesjwmvhzzwkbf7djbiu327z2gqoestaging;
-
-    
+    console.log(`EVENT: ${JSON.stringify(event)}`);
+    return {
+        statusCode: 200,
+    //  Uncomment below to enable CORS requests
+    //  headers: {
+    //      "Access-Control-Allow-Origin": "*",
+    //      "Access-Control-Allow-Headers": "*"
+    //  },
+        body: JSON.stringify('Hello from Lambda!'),
+    };
 };
