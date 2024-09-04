@@ -86,6 +86,11 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "notesLimitCheck": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -102,6 +107,22 @@
         {
           "category": "function",
           "resourceName": "notesCurdFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_notesLimitCheck_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notesLimitCheck"
+        }
+      ]
+    },
+    "AMPLIFY_function_notesLimitCheck_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notesLimitCheck"
         }
       ]
     },
