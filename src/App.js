@@ -2,7 +2,8 @@ import { NavBar, NoteUICollection, CreateNote, UpdateNote } from './ui-component
 import { useState } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 // import { DataStore } from 'aws-amplify/datastore';
-// import CreateItem from './CreateItem';
+import CreateItem from './CreateItem';
+import UpdateItem from './UpdateItem';
 
 function App({ signOut }) {
 
@@ -57,9 +58,9 @@ function App({ signOut }) {
         }}/>
       </div>
 
-      {/* <div style={{alignItems: 'center', margin: 500}}>
+      <div style={{alignItems: 'center', margin: 500}}>
         <CreateItem />
-      </div> */}
+      </div>
 
       {/* <NavBar width="100%" marginbottom="20px" />
 
@@ -69,11 +70,11 @@ function App({ signOut }) {
 
       <div className='modal' style={{display: 'none'}}>
         <CreateNote />
-      </div>
-
-      <div className='modal' style={{display: 'none'}}>
-        <UpdateNote />
       </div> */}
+
+      <div style={{alignItems: 'center', margin: 500}}>
+        <UpdateItem />
+      </div>
 
     </>
   );

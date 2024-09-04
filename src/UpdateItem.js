@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { generateClient } from 'aws-amplify/api';
-import { customUpdateNotes } from './graphql/mutations';
+import { updateNotes } from './graphql/mutations';
 
 const client = generateClient();
 
@@ -11,13 +11,21 @@ const UpdateItem = () => {
 
   const handleUpdateItem = async () => {
     const input = { id, title, text };
+    console.log(input);
 
     try {
       const result = await client.graphql({
-        query: customUpdateNotes,
-        variables: {input: input}
+        query: updateNotes,
+        variables: {
+          input: {
+            id: id,
+            title: title,
+            text: text
+          }
+        }
       });
-      console.log('Item updated:', result.data.customUpdateNotes);
+      console.log(result);
+      console.log('Item updated:', result.data.updateNotes);
     } catch (error) {
       console.error('Error updating item:', error);
     }

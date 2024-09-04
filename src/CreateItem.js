@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { generateClient } from 'aws-amplify/api';
-import { customCreateNotes } from './graphql/mutations'; // Import the generated mutation
-import { useDataStoreCreateAction } from './ui-components/utils';
-import { schema } from './models/schema';
-import { Notes } from './models';
+import { createNotes } from './graphql/mutations'; // Import the generated mutation
+// import { useDataStoreCreateAction } from './ui-components/utils';
+// import { schema } from './models/schema';
+// import { Notes } from './models';
 
 const client = generateClient();
 
@@ -27,38 +27,20 @@ const CreateItem = () => {
 
   }
 
-  // const handleCreateItem = useDataStoreCreateAction({
-  //   fields: {
-  //     title: title,
-  //     text, text
-  //   },
-  //   model: Notes,
-  //   schema: schema
-  // });
-  
 
   const handleCreateItem = async () => {
     const input = { id: `${Date.now()}`, title, text };
 
     console.log({title, text});
 
-    // const result = await client.graphql({
-    //   query: customCreateNotes,
-    //   variables: {
-    //     input: {
-    //       title, text
-    //     }
-    //   }
-    // });
-    // console.log(result);
 
     try {
       const result = await client.graphql({
-        query: customCreateNotes,
+        query: createNotes,
         variables: { input: input}
       });
       console.log(result);
-      console.log('Item created:', result.data.customCreateNotes);
+      console.log('Item created:', result.data.createNotes);
     } catch (error) {
       console.error('Error creating item:', error);
     }
