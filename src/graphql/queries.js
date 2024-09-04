@@ -7,12 +7,12 @@ export const getNotes = /* GraphQL */ `
       id
       title
       text
-      owner
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
       __typename
     }
   }
@@ -28,12 +28,12 @@ export const listNotes = /* GraphQL */ `
         id
         title
         text
-        owner
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        owner
         __typename
       }
       nextToken
@@ -59,12 +59,12 @@ export const syncNotes = /* GraphQL */ `
         id
         title
         text
-        owner
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        owner
         __typename
       }
       nextToken
