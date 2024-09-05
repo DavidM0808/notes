@@ -2,4 +2,4 @@ type Notes @model @auth(rules: [{allow: owner}, {allow: private}, {allow: privat
   id: ID!
   title: String
   text: String
-}
+} 
