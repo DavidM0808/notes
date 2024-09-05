@@ -25,16 +25,19 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type NotesUpdateFormInputValues = {
     title?: string;
     text?: string;
+    owner?: string;
 };
 export declare type NotesUpdateFormValidationValues = {
     title?: ValidationFunction<string>;
     text?: ValidationFunction<string>;
+    owner?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type NotesUpdateFormOverridesProps = {
     NotesUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     title?: PrimitiveOverrideProps<TextFieldProps>;
     text?: PrimitiveOverrideProps<TextFieldProps>;
+    owner?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type NotesUpdateFormProps = React.PropsWithChildren<{
     overrides?: NotesUpdateFormOverridesProps | undefined | null;

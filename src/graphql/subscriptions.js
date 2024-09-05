@@ -10,12 +10,12 @@ export const onCreateNotes = /* GraphQL */ `
       id
       title
       text
+      owner
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      owner
       __typename
     }
   }
@@ -29,12 +29,12 @@ export const onUpdateNotes = /* GraphQL */ `
       id
       title
       text
+      owner
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      owner
       __typename
     }
   }
@@ -48,12 +48,12 @@ export const onDeleteNotes = /* GraphQL */ `
       id
       title
       text
+      owner
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      owner
       __typename
     }
   }

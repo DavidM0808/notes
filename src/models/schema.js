@@ -24,6 +24,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "owner": {
+                    "name": "owner",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -47,6 +54,16 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byOwner",
+                        "queryField": "notesByOwner",
+                        "fields": [
+                            "owner"
+                        ]
+                    }
                 },
                 {
                     "type": "auth",
@@ -92,5 +109,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "dd2518a344391a333cf6f899a4af1b68"
+    "version": "4b262d9bcab459c43c2887a4b15b654f"
 };
