@@ -2,5 +2,15 @@ type Notes @model @auth(rules: [{allow: owner}, {allow: private}, {allow: privat
   id: ID!
   title: String
   text: String
-  owner: String @index(name: "byOwner", queryField: "notesByOwner")
+  owner: String @index(name: "byOwner", queryField: ")
 } 
+
+type Mutation {
+  createNote(input: CreateNoteInput!): Notes @function(name: "noteLimitCheck-${env}")
+}
+
+input CreateNoteInput {
+  id: ID
+  title: String!
+  text: String!
+}
