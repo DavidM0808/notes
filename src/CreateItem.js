@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { generateClient } from 'aws-amplify/api';
 import { createNote } from './graphql/mutations'; // Import the generated mutation
-// import { useDataStoreCreateAction } from './ui-components/utils';
-// import { schema } from './models/schema';
-// import { Notes } from './models';
 
 const client = generateClient();
 

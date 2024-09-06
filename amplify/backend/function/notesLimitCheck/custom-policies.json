@@ -1,6 +1,12 @@
 [
   {
-    "Action": [],
-    "Resource": []
+    "Action": [
+      "dynamoDB:Query",
+      "dynamoDB:PutItem"
+    ],
+    "Resource": [
+      "arn:aws:dynamodb:us-east-2:562275928752:table/Notes-jwmvhzzwkbf7djbiu327z2gqoe-staging",
+      "arn:aws:dynamodb:us-east-2:562275928752:table/Notes-jwmvhzzwkbf7djbiu327z2gqoe-staging/index/byOwner"
+    ]
   }
 ]

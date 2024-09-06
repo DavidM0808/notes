@@ -1,14 +1,22 @@
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-const dynamoDB = new DynamoDBClient;
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient, QueryCommand, PutCommand } = require('@aws-sdk/lib-dynamodb');
+
+const dynamoDB = new DynamoDBClient({});
+const ddbDocClient = DynamoDBDocumentClient.from(dynamoDB);
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-    const { userId } = event.identity.claims; // This is the authenticated user ID (owner)
-    const { title, text } = event.arguments.input;
+    console.log("Event: ", JSON.stringify(event, null, 2)); // Look at what exactly is going on with event.json
 
-    const tableName = process.env.STORAGE_Notesjwmvhzzwkbf7djbiu327z2gqoestaging_NAME;
+    const { sub: userId } = event.identity.claims; // This is the authenticated user ID (owner)
+    console.log(userId); // troubleshooting
+
+    const { title, text } = event.arguments.input;
+    console.log({title, text}); // troubleshooting
+
+    const tableName = "Notes-jwmvhzzwkbf7djbiu327z2gqoe-staging";
 
     // Check the notes limit for the owner.
     try{
@@ -16,13 +24,16 @@ exports.handler = async (event) => {
         const params = {
             TableName: tableName,
             IndexName: "byOwner",
-            KeyConditionExpression: "owner = :owner",
+            KeyConditionExpression: "#owner = :owner",
+            ExpressionAttributeNames: {
+                "#owner": "owner" // Replace the reserved keyword with an alias
+            },
             ExpressionAttributeValues: {
-               ":owner" : userId
+                ":owner": userId
             }
         }
 
-        const data = await dynamoDB.query(params).promise();
+        const data = await ddbDocClient.send(new QueryCommand(params));
 
         // If the limit is greater than 5, throw exception.
         if (data.Items.length >= 5) {
@@ -38,6 +49,10 @@ exports.handler = async (event) => {
                 text: text,
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString(),
+                _version: 1, // Set _version to 1 for the initial creation
+                _lastChangedAt: Date.now(), // Set the current timestamp
+                _deleted: false, // Set to false since it's not deleted
+                __typename: "Notes"
             };
     
             const putParams = {
@@ -45,7 +60,7 @@ exports.handler = async (event) => {
                 Item: newNote
             };
     
-            await dynamoDB.put(putParams).promise();
+            await ddbDocClient.send(new PutCommand(putParams));
     
             return newNote;
         }
