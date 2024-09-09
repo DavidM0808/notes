@@ -40,7 +40,7 @@ exports.handler = async (event) => {
             throw new Error('Limit exceeded: You can only create up to 5 notes.');
         }
         else { // Limit is not exceeded, we can create a new note entry.
-            const noteId = `note-${Date.now()}`; 
+            const noteId = `notes-${Date.now()}`; 
 
             const newNote = {
                 id: noteId,

@@ -26,7 +26,7 @@ const CreateItem = () => {
 
 
   const handleCreateItem = async () => {
-    const input = { id: `${Date.now()}`, title, text };
+    const input = { id: `notes-${Date.now()}`, title, text };
 
     console.log({title, text});
 
