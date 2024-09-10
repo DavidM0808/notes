@@ -26,7 +26,8 @@
           "streamArn": "arn:aws:dynamodb:us-east-2:562275928752:table/Notes-jwmvhzzwkbf7djbiu327z2gqoe-staging/stream/2024-08-27T17:46:09.043",
           "partitionKeyName": "id",
           "partitionKeyType": "S"
-        }
+        },
+        "userImages": {}
       },
       "function": {
         "notesCurdFunction": {

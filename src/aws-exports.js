@@ -38,7 +38,9 @@ const awsmobile = {
             "tableName": "Notes-jwmvhzzwkbf7djbiu327z2gqoe-staging",
             "region": "us-east-2"
         }
-    ]
+    ],
+    "aws_user_files_s3_bucket": "amplify-notes-main-c9319-deploymentf69f5-staging",
+    "aws_user_files_s3_bucket_region": "us-east-2"
 };
 
 

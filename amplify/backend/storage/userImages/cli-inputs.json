@@ -1,0 +1,14 @@
+{
+  "resourceName": "userImages",
+  "policyUUID": "b9bd373c",
+  "bucketName": "amplify-notes-main-c9319-deployment",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
