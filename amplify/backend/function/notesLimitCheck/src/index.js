@@ -26,7 +26,7 @@ exports.handler = async (event) => {
             IndexName: "byOwner",
             KeyConditionExpression: "#owner = :owner",
             ExpressionAttributeNames: {
-                "#owner": "owner" // Replace the reserved keyword with an alias
+                "#owner": "owner" // Replace the reserved keyword with an alias or else it will throw an InvalidKeyConditionException.
             },
             ExpressionAttributeValues: {
                 ":owner": userId
