@@ -2,9 +2,10 @@ import { NavBar, NoteUICollection, CreateNote, UpdateNote } from './ui-component
 import { useState } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 // import { DataStore } from 'aws-amplify/datastore';
-import CreateItem from './CreateItem';
-import UpdateItem from './UpdateItem';
-import DeleteItem from './DeleteItem';
+import CreateItem from './CustomComponents/CreateItem';
+// import UpdateItem from './custom-components/UpdateItem';
+// import DeleteItem from './custom-components/DeleteItem';
+import ImageUpload from './CustomComponents/ImageUpload';
 
 function App({ signOut }) {
 
@@ -63,13 +64,17 @@ function App({ signOut }) {
         <CreateItem />
       </div>
 
-      <div style={{alignItems: 'center', margin: 500}}>
+      <div style={{alignItems: 'center', margin:500}}>
+        <ImageUpload />
+      </div>
+
+      {/* <div style={{alignItems: 'center', margin: 500}}>
         <DeleteItem />
       </div>
 
       <div style={{alignItems: 'center', margin: 500}}>
         <UpdateItem />
-      </div>
+      </div> */}
 
     </>
   );
