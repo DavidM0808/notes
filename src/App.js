@@ -2,10 +2,10 @@ import { NavBar, NoteUICollection, CreateNote, UpdateNote } from './ui-component
 import { useState } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 // import { DataStore } from 'aws-amplify/datastore';
-import CreateItem from './CustomComponents/CreateItem';
+import CreateItem from './custom-components/CreateItem';
 // import UpdateItem from './custom-components/UpdateItem';
 // import DeleteItem from './custom-components/DeleteItem';
-import ImageUpload from './CustomComponents/ImageUpload';
+import ImageUpload from './custom-components/ImageUpload';
 
 function App({ signOut }) {
 
