@@ -6,12 +6,12 @@ import CreateItem from './custom-components/CreateItem';
 // import UpdateItem from './custom-components/UpdateItem';
 // import DeleteItem from './custom-components/DeleteItem';
 import ImageUpload from './custom-components/ImageUpload';
-import S3FileSelector from './custom-components/ImageDisplay';
 import ImageDisplay from './custom-components/ImageDisplay';
 
 import { generateClient } from 'aws-amplify/api';
 import { syncNotes } from './graphql/queries';
 import { deleteNotes } from './graphql/mutations';
+import { getCurrentUser } from '@aws-amplify/auth';
 
 const client = generateClient();
 
@@ -19,13 +19,27 @@ function App({ signOut }) {
 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [updateNote, setUpdateNote] = useState();
+  const [updateNote, setUpdateNote] = useState([]);
+  const [userId, setUserId] = useState('');
 
   // Custom state for all the notes
   const [notes, setNotes] = useState([]);
 
   // Creating a reference for sucesfully uploaded image
   const imageDisplayRef = useRef(null);
+
+  // Function to verify user
+  const verifyUser = async () => {
+    // Verify that the current user exists
+    try {
+        const userId = (await getCurrentUser()).userId;
+        console.log(userId);
+        setUserId(userId);
+    }
+    catch (err) {
+        console.error("User error: ", err);
+    }
+  }
 
   // Function to fetch notes
   const fetchNotes = async () => {
@@ -37,13 +51,20 @@ function App({ signOut }) {
       }
     });
     const filteredNotes = result.data.syncNotes.items.filter(note => note._deleted !== true);
-    setNotes(filteredNotes);
+    const secondFilteredNotes = filteredNotes.filter(note => note.owner === userId);
+    setNotes(secondFilteredNotes);
   }
 
   // Fetch notes when the component mounts
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    const initialize = async () => {
+      await verifyUser();
+      if (userId) {
+        fetchNotes();
+      }
+    }
+    initialize();
+  }, [userId]);
 
   // Callback to handle after creating a note
   const handleCreateSuccess = (newNote) => {

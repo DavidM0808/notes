@@ -29,6 +29,7 @@ const ImageUpload = ({ onUploadSuccess }) => {
     // Check if the user is verified under Cognito User Pool
     try {
       const userId = (await getCurrentUser()).userId;
+      console.log(userId);
 
     }
     catch(err) {
@@ -37,7 +38,7 @@ const ImageUpload = ({ onUploadSuccess }) => {
 
     try {
       const userId = (await getCurrentUser()).userId;
-      const fileName = `${Date.now()}-${image.name}`; // Unique file name
+      // const fileName = `${Date.now()}-${image.name}`; // Unique file name
       const result = await uploadData({
         path: 'protected/' + userId + '/' + image.name,
         data: image
