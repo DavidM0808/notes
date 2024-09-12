@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { DataStore } from 'aws-amplify/datastore';
 import { generateClient } from 'aws-amplify/api';
 import { createNote } from '../graphql/mutations'; // Import the generated mutation
+import { syncNotes } from '../graphql/queries';
 
 const client = generateClient();
 
-const CreateItem = () => {
+const CreateItem = ({onCreateSuccess}) => {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
 
@@ -28,16 +30,35 @@ const CreateItem = () => {
   const handleCreateItem = async () => {
     const input = { id: `notes-${Date.now()}`, title, text };
 
-    console.log({title, text});
+    console.log({title, text}); // Troubleshooting
 
 
     try {
+      // Creating a new note
       const result = await client.graphql({
         query: createNote,
         variables: { input: input}
       });
       console.log(result);
-      console.log('Item created:', result.data.createNote);
+      
+      const newNote = result.data.createNote;
+      console.log('Item created:', newNote);
+
+      // Re-fetch the notes to update the UI
+      const notes = await client.graphql({
+        query: syncNotes,
+        variables: {
+          filter: null,
+          lastSync: null
+        }
+      });
+      console.log('Fetched notes after creation:', notes);
+
+      // Call the callback to refresh the notes
+      if (onCreateSuccess) {
+        await DataStore.clear();
+        onCreateSuccess(newNote);
+      }
     } catch (error) {
       console.error('Error creating item:', error);
     }

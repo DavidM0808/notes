@@ -1,5 +1,5 @@
 import { NavBar, NoteUICollection, CreateNote, UpdateNote } from './ui-components';
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 // import { DataStore } from 'aws-amplify/datastore';
 import CreateItem from './custom-components/CreateItem';
@@ -9,14 +9,45 @@ import ImageUpload from './custom-components/ImageUpload';
 import S3FileSelector from './custom-components/ImageDisplay';
 import ImageDisplay from './custom-components/ImageDisplay';
 
+import { generateClient } from 'aws-amplify/api';
+import { syncNotes } from './graphql/queries';
+
+const client = generateClient();
+
 function App({ signOut }) {
 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [updateNote, setUpdateNote] = useState();
 
+  // Custom state for all the notes
+  const [notes, setNotes] = useState([]);
+
   // Creating a reference for sucesfully uploaded image
   const imageDisplayRef = useRef(null);
+
+  // Function to fetch notes
+  const fetchNotes = async () => {
+    const result = await client.graphql({
+      query: syncNotes,
+      variables: {
+        filter: null,
+        lastSync: null
+      }
+    });
+    setNotes(result.data.syncNotes.items);
+  }
+
+  // Fetch notes when the component mounts
+  useEffect(() => {
+    fetchNotes();
+  }, []);
+
+  // Callback to handle after creating a note
+  const handleCreateSuccess = (newNote) => {
+    // fetchNotes(); // Refresh the list of notes after a new one is created
+    setNotes(prevNotes => [...prevNotes, newNote]);
+  };
 
   // Callback function to refresh files upon upload
   const handleUploadSuccess = () => {
@@ -44,7 +75,7 @@ function App({ signOut }) {
 
 
       <div className='container'>
-      <NoteUICollection overrideItems={ ({item, idx}) => {
+      <NoteUICollection items={notes} overrideItems={ ({item, idx}) => {
         return {
           overrides: {
             Vector31472745: {
@@ -73,7 +104,7 @@ function App({ signOut }) {
       </div>
 
       <div style={{alignItems: 'center', margin: 500}}>
-        <CreateItem />
+        <CreateItem onCreateSuccess={handleCreateSuccess}/>
       </div>
 
       <div style={{alignItems: 'center', margin:500}}>
