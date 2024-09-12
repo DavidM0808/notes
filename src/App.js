@@ -11,6 +11,7 @@ import ImageDisplay from './custom-components/ImageDisplay';
 
 import { generateClient } from 'aws-amplify/api';
 import { syncNotes } from './graphql/queries';
+import { deleteNotes } from './graphql/mutations';
 
 const client = generateClient();
 
@@ -35,7 +36,8 @@ function App({ signOut }) {
         lastSync: null
       }
     });
-    setNotes(result.data.syncNotes.items);
+    const filteredNotes = result.data.syncNotes.items.filter(note => note._deleted !== true);
+    setNotes(filteredNotes);
   }
 
   // Fetch notes when the component mounts
@@ -84,8 +86,30 @@ function App({ signOut }) {
                 setShowUpdateModal(true)
                 setUpdateNote(item)
               }
+            },
+            MyIcon: {
+              onClick: async () => {
+                try {
+                  const result = await client.graphql({
+                    query: deleteNotes,
+                    variables: {
+                      input: {
+                        id: item.id,
+                        _version: item._version
+                      }
+                    }
+                  });
+                  console.log("Note deleted: ", result);
+                }
+                catch(err){
+                  console.error("Delete Error: ", err);
+                }
+
+                setNotes(prevNotes => prevNotes.filter(note => note.id !== item.id));
+              }
             }
-          }
+          },
+
         }
       }} />
 
