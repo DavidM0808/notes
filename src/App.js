@@ -1,7 +1,6 @@
 import { NavBar, NoteUICollection, CreateNote, UpdateNote } from './ui-components';
 import { useState, useEffect, useRef } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
-// import { DataStore } from 'aws-amplify/datastore';
 import CreateItem from './custom-components/CreateItem';
 // import UpdateItem from './custom-components/UpdateItem';
 // import DeleteItem from './custom-components/DeleteItem';
@@ -89,7 +88,6 @@ function App({ signOut }) {
         }},
         Button31632487: {onClick: async () => {
           {
-            // await DataStore.clear()
             signOut()
           }
           console.log("Sign out button clicked")
