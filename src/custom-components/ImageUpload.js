@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { uploadData } from '@aws-amplify/storage';
+import { getCurrentUser } from '@aws-amplify/auth';
 
-const ImageUpload = () => {
+const ImageUpload = ({ onUploadSuccess }) => {
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
@@ -17,16 +18,28 @@ const ImageUpload = () => {
 
   // Handle image upload
   const handleUpload = async () => {
+
     if (!image) {
       setError('Please select an image to upload.');
       return;
     }
 
     setUploading(true);
+    
+    // Check if the user is verified under Cognito User Pool
     try {
+      const userId = (await getCurrentUser()).userId;
+
+    }
+    catch(err) {
+      console.error('User error:', err);
+    }
+
+    try {
+      const userId = (await getCurrentUser()).userId;
       const fileName = `${Date.now()}-${image.name}`; // Unique file name
       const result = await uploadData({
-        path: image.name,
+        path: 'protected/' + userId + '/' + image.name,
         data: image
       }).result;
 
@@ -35,6 +48,11 @@ const ImageUpload = () => {
       setUploading(false);
       setUploadSuccess(true);
       setImage(null); // Clear the selected image
+
+      // Notify that the upload was successful
+      if (onUploadSuccess) {
+        onUploadSuccess();
+      }
     } catch (err) {
       setUploading(false);
       setError('Error uploading file. Please try again.');

@@ -1,17 +1,29 @@
 import { NavBar, NoteUICollection, CreateNote, UpdateNote } from './ui-components';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 // import { DataStore } from 'aws-amplify/datastore';
 import CreateItem from './custom-components/CreateItem';
 // import UpdateItem from './custom-components/UpdateItem';
 // import DeleteItem from './custom-components/DeleteItem';
 import ImageUpload from './custom-components/ImageUpload';
+import S3FileSelector from './custom-components/ImageDisplay';
+import ImageDisplay from './custom-components/ImageDisplay';
 
 function App({ signOut }) {
 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [updateNote, setUpdateNote] = useState();
+
+  // Creating a reference for sucesfully uploaded image
+  const imageDisplayRef = useRef(null);
+
+  // Callback function to refresh files upon upload
+  const handleUploadSuccess = () => {
+    if (imageDisplayRef.current) {
+      imageDisplayRef.current.fetchFiles();
+    }
+  }
 
   return (
     <>
@@ -65,7 +77,11 @@ function App({ signOut }) {
       </div>
 
       <div style={{alignItems: 'center', margin:500}}>
-        <ImageUpload />
+        <ImageUpload onUploadSuccess={handleUploadSuccess}/>
+      </div>
+
+      <div style={{alignItems: 'center', margin:500}}>
+        <ImageDisplay ref={imageDisplayRef}/>
       </div>
 
       {/* <div style={{alignItems: 'center', margin: 500}}>

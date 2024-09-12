@@ -1,54 +1,65 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { list, getUrl } from '@aws-amplify/storage';
 import { getCurrentUser } from '@aws-amplify/auth';
 
-const S3FileSelector = () => {
+const ImageDisplay = forwardRef((props, ref) => {
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [error, setError] = useState('');
+  const [userId, setUserId] = useState('');
+  
+  const verifyUser = async () => {
+        // Verify that the current user exists
+        try {
+            const userId = (await getCurrentUser()).userId;
+            console.log(userId);
+            setUserId(userId);
+        }
+        catch (err) {
+            console.error("User error: ", err);
+        }
+  }
 
   // Fetch the list of files from S3
-const fetchFiles = async () => {
+  const fetchFiles = async () => {
+        try {
 
-    // Verify that the current user exists
-    try {
-        const userId = (await getCurrentUser()).userId;
-        console.log(userId);
-    }
-    catch (err) {
-        console.error("User error: ", err);
-    }
+            // List the files in S3 that are uploaded by the specific user.
+            const s3Files = await list({
+                path: 'protected/' + userId + '/'
+            });
 
-    try {
+            console.log(s3Files); // Troubleshooting
 
-        const userId = (await getCurrentUser()).userId;
-
-        // List the files in S3 that are uploaded by the specific user.
-        const s3Files = await list({
-            path: 'protected/' + userId + '/'
-        })
-        setFiles(s3Files);
-    } catch (err) {
-        console.error('Error fetching files:', err);
-        setError('Error fetching files from S3');
-    }
-  };
+            setFiles(s3Files.items || []);
+        } catch (err) {
+            console.error('Error fetching files:', err);
+            setError('Error fetching files from S3');
+        }
+    };
+  
+    // Expose the fetchFiles function to the parent
+  useImperativeHandle(ref, () => ({
+    fetchFiles
+  }));
 
   // Handle file selection from the dropdown
   const handleFileSelect = async (e) => {
+    console.log(files);
+    console.log(e);
     const fileName = e.target.value;
     setSelectedFile(fileName);
     setError('');
     
     if (fileName) {
       try {
-        const userId = (await getCurrentUser()).userId;
         // Get the public URL for the selected file
         const signedUrl = await getUrl({
-            path: 'protected/' + userId + '/' + fileName;
+            path: 'protected/' + userId + '/' + fileName
         }); 
-        setImageUrl(signedUrl);
+        console.log(signedUrl); // Troubleshooting
+        setImageUrl(signedUrl.url);
       } catch (err) {
         console.error('Error getting file URL:', err);
         setError('Error loading the selected file.');
@@ -60,8 +71,14 @@ const fetchFiles = async () => {
 
   // Load the files on component mount
   useEffect(() => {
-    fetchFiles();
-  }, []);
+    const initalize = async () => {
+        await verifyUser();
+        if (userId) {
+            fetchFiles();
+        }
+    };
+    initalize();
+  }, [userId]);
 
   return (
     <div>
@@ -72,7 +89,7 @@ const fetchFiles = async () => {
         <option value="">-- Select a file --</option>
         {files.map((file) => (
           <option key={file.key} value={file.key}>
-            {file.key}
+            {file.path.split("/")[2]}
           </option>
         ))}
       </select>
@@ -94,6 +111,6 @@ const fetchFiles = async () => {
       </div>
     </div>
   );
-};
+});
 
-export default S3FileSelector;
+export default ImageDisplay;
