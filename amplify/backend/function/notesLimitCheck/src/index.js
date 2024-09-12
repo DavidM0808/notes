@@ -35,8 +35,14 @@ exports.handler = async (event) => {
 
         const data = await ddbDocClient.send(new QueryCommand(params));
 
+        console.log(data); // Troubleshooting
+
+        const existingNotes = (data.Items).filter(note => note._deleted != true);
+
+        console.log(existingNotes);
+
         // If the limit is greater than 5, throw exception.
-        if (data.Items.length >= 5) {
+        if (existingNotes.length >= 5) {
             throw new Error('Limit exceeded: You can only create up to 5 notes.');
         }
         else { // Limit is not exceeded, we can create a new note entry.

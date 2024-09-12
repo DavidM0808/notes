@@ -36,7 +36,7 @@
         },
         "notesLimitCheck": {
           "deploymentBucketName": "amplify-amplify6549dc8806ff4-staging-f69f5-deployment",
-          "s3Key": "amplify-builds/notesLimitCheck-4d4f353442314a39784d-build.zip"
+          "s3Key": "amplify-builds/notesLimitCheck-48746c594d41574d364a-build.zip"
         }
       }
     }
