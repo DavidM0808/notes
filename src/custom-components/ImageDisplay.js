@@ -27,7 +27,8 @@ const ImageDisplay = forwardRef((props, ref) => {
 
             // List the files in S3 that are uploaded by the specific user.
             const s3Files = await list({
-                path: 'private/' + userId + '/'
+                path: 'private/' + userId + '/',
+                accessLevel: 'private'
             });
 
             console.log(s3Files); // Troubleshooting
@@ -56,7 +57,8 @@ const ImageDisplay = forwardRef((props, ref) => {
       try {
         // Get the public URL for the selected file
         const signedUrl = await getUrl({
-            path: 'private/' + userId + '/' + fileName
+            path: 'private/' + userId + '/' + fileName,
+            accessLevel: 'private'
         }); 
         console.log(signedUrl); // Troubleshooting
         setImageUrl(signedUrl.url);
@@ -69,15 +71,19 @@ const ImageDisplay = forwardRef((props, ref) => {
     }
   };
 
-  // Load the files on component mount
+  // Fetch the userId on component mount
   useEffect(() => {
     const initalize = async () => {
         await verifyUser();
-        if (userId) {
-            fetchFiles();
-        }
-    };
+        };
     initalize();
+  }, []);
+
+  // Load the files on component mount
+  useEffect(() => {
+    if (userId) {
+        fetchFiles();
+    }
   }, [userId]);
 
   return (
