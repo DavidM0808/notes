@@ -40,7 +40,7 @@ const ImageUpload = ({ onUploadSuccess }) => {
       const userId = (await getCurrentUser()).userId;
       // const fileName = `${Date.now()}-${image.name}`; // Unique file name
       const result = await uploadData({
-        path: 'protected/' + userId + '/' + image.name,
+        path: 'private/' + userId + '/' + image.name,
         data: image
       }).result;
 

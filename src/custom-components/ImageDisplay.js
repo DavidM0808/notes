@@ -27,7 +27,7 @@ const ImageDisplay = forwardRef((props, ref) => {
 
             // List the files in S3 that are uploaded by the specific user.
             const s3Files = await list({
-                path: 'protected/' + userId + '/'
+                path: 'private/' + userId + '/'
             });
 
             console.log(s3Files); // Troubleshooting
@@ -56,7 +56,7 @@ const ImageDisplay = forwardRef((props, ref) => {
       try {
         // Get the public URL for the selected file
         const signedUrl = await getUrl({
-            path: 'protected/' + userId + '/' + fileName
+            path: 'private/' + userId + '/' + fileName
         }); 
         console.log(signedUrl); // Troubleshooting
         setImageUrl(signedUrl.url);
