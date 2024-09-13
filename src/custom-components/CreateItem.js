@@ -44,15 +44,15 @@ const CreateItem = ({onCreateSuccess}) => {
       const newNote = result.data.createNote;
       console.log('Item created:', newNote);
 
-      // Re-fetch the notes to update the UI
-      const notes = await client.graphql({
-        query: syncNotes,
-        variables: {
-          filter: null,
-          lastSync: null
-        }
-      });
-      console.log('Fetched notes after creation:', notes);
+      // // Re-fetch the notes to update the UI
+      // const notes = await client.graphql({
+      //   query: syncNotes,
+      //   variables: {
+      //     filter: null,
+      //     lastSync: null
+      //   }
+      // });
+      // console.log('Fetched notes after creation:', notes);
 
       // Call the callback to refresh the notes
       if (onCreateSuccess) {

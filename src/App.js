@@ -9,7 +9,7 @@ import ImageDisplay from './custom-components/ImageDisplay';
 
 import { generateClient } from 'aws-amplify/api';
 import { syncNotes } from './graphql/queries';
-import { deleteNotes } from './graphql/mutations';
+import { deleteNotes, createNote } from './graphql/mutations';
 import { getCurrentUser } from '@aws-amplify/auth';
 
 const client = generateClient();
@@ -54,15 +54,19 @@ function App({ signOut }) {
     setNotes(secondFilteredNotes);
   }
 
-  // Fetch notes when the component mounts
+  // Fetch userId when the component mounts
   useEffect(() => {
     const initialize = async () => {
       await verifyUser();
-      if (userId) {
-        fetchNotes();
-      }
     }
     initialize();
+  }, []);
+
+  // Fetch notes when the component mounts
+  useEffect(() => {
+    if (userId) {
+      fetchNotes();
+    }
   }, [userId]);
 
   // Callback to handle after creating a note
@@ -135,9 +139,15 @@ function App({ signOut }) {
       </div>
 
       <div className='modal' style={{display: showCreateModal === false && 'none'}}>
-        <CreateNote overrides={{
-          MyIcon: {as: 'button', onClick: () => setShowCreateModal(false)},
-        }} />
+        <CreateNote onCreateSuccess={handleCreateSuccess} 
+          overrides={{
+            MyIcon: {
+              as: 'button',
+              onClick: () => {
+                setShowCreateModal(false)
+
+              }}
+          }} />
       </div>
       
       <div className='modal' style={{display: showUpdateModal === false && 'none'}}>

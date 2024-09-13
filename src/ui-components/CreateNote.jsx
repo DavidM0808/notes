@@ -14,7 +14,14 @@ import {
 import { Notes } from "../models";
 import { schema } from "../models/schema";
 import { Button, Divider, Flex, Icon, TextField } from "@aws-amplify/ui-react";
-export default function CreateNote(props) {
+
+import { DataStore } from 'aws-amplify/datastore';
+import { generateClient } from "aws-amplify/api";
+import { createNote } from "../graphql/mutations";
+
+const client = generateClient();
+
+const CreateNote = ({ onCreateSuccess, ...props }) => {
   const { overrides, ...rest } = props;
   const [
     textFieldThreeOneSixZeroTwoFourEightFiveValue,
@@ -24,14 +31,14 @@ export default function CreateNote(props) {
     textFieldThreeOneSixZeroTwoFourEightSixValue,
     setTextFieldThreeOneSixZeroTwoFourEightSixValue,
   ] = useStateMutationAction("");
-  const buttonOnClick = useDataStoreCreateAction({
-    fields: {
-      title: textFieldThreeOneSixZeroTwoFourEightFiveValue,
-      text: textFieldThreeOneSixZeroTwoFourEightSixValue,
-    },
-    model: Notes,
-    schema: schema,
-  });
+  // const buttonOnClick = useDataStoreCreateAction({
+  //   fields: {
+  //     title: textFieldThreeOneSixZeroTwoFourEightFiveValue,
+  //     text: textFieldThreeOneSixZeroTwoFourEightSixValue,
+  //   },
+  //   model: Notes,
+  //   schema: schema,
+  // });
   return (
     <Flex
       gap="16px"
@@ -142,12 +149,38 @@ export default function CreateNote(props) {
           isDisabled={false}
           variation="primary"
           children="Save"
-          onClick={() => {
-            buttonOnClick();
-          }}
+          onClick={ async () => {
+            const input = { id: `notes-${Date.now()}`, 
+            title: textFieldThreeOneSixZeroTwoFourEightFiveValue,
+            text: textFieldThreeOneSixZeroTwoFourEightSixValue 
+            };
+
+            try {
+              // Creating a new note
+              const result = await client.graphql({
+                query: createNote,
+                variables: { input: input}
+              });
+              console.log(result);
+              
+              const newNote = result.data.createNote;
+              console.log('Item created:', newNote);
+        
+              // Call the callback to refresh the notes
+              if (onCreateSuccess) {
+                await DataStore.clear();
+                onCreateSuccess(newNote);
+              }
+            } catch (error) {
+              console.error('Error creating item:', error);
+            }
+          }
+        }
           {...getOverrideProps(overrides, "Button")}
         ></Button>
       </Flex>
     </Flex>
   );
 }
+
+export default CreateNote;
